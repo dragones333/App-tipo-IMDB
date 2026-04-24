@@ -64,6 +64,7 @@
 
 <section class="celebs-section" id="celebridades">
     <div class="section-container">
+        <div class="section-badge">HOT LIST 2026</div>
         <SectionHeader
             title="Celebridades en Tendencia"
             subtitle="Las estrellas más populares del momento"
@@ -90,15 +91,44 @@
 
 <style>
     .celebs-section {
-        padding: 72px 0 20px;
+        padding: 72px 0 28px;
+        position: relative;
+    }
+
+    .celebs-section::before {
+        content: '';
+        position: absolute;
+        inset: 30px 0 0;
+        background:
+            radial-gradient(circle at 12% 10%, rgba(220, 38, 38, 0.08), transparent 42%),
+            linear-gradient(180deg, rgba(253, 248, 246, 0.95) 0%, rgba(255, 255, 255, 0) 100%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .section-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        font-weight: 700;
+        color: var(--red-700);
+        background: linear-gradient(90deg, #fff2ec 0%, #ffe8df 100%);
+        border: 1px solid #ffd5c6;
+        border-radius: var(--radius-full);
+        padding: 8px 12px;
+        margin-bottom: 18px;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.08);
     }
 
     .celebs-grid {
         display: flex;
-        gap: 8px;
+        gap: 14px;
         overflow-x: auto;
-        padding: 8px 0 16px;
+        padding: 14px 4px 18px;
         scrollbar-width: none;
+        mask-image: linear-gradient(to right, transparent 0, black 18px, black calc(100% - 18px), transparent 100%);
     }
 
     .celebs-grid::-webkit-scrollbar {
@@ -112,18 +142,18 @@
 
     .trending-indicator {
         position: absolute;
-        top: 14px;
-        right: 14px;
+        top: 10px;
+        right: 10px;
         z-index: 2;
-        width: 22px;
-        height: 22px;
+        width: 26px;
+        height: 26px;
         border-radius: 50%;
-        background: var(--primary);
+        background: linear-gradient(145deg, #ef4444, #b91c1c);
         color: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 6px 16px rgba(220, 38, 38, 0.38);
         animation: pulse 2s ease-in-out infinite;
     }
 
@@ -135,6 +165,19 @@
     @media (max-width: 768px) {
         .celebs-section {
             padding: 48px 0 20px;
+        }
+
+        .section-badge {
+            margin-bottom: 14px;
+            font-size: 0.66rem;
+            letter-spacing: 0.13em;
+            padding: 7px 10px;
+        }
+
+        .celebs-grid {
+            gap: 10px;
+            padding: 10px 2px 14px;
+            mask-image: none;
         }
     }
 </style>
