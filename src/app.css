@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    /* Primary Colors */
+    --red-50: #fef2f2;
+    --red-100: #fee2e2;
+    --red-200: #fecaca;
+    --red-300: #fca5a5;
+    --red-400: #f87171;
+    --red-500: #dc2626;
+    --red-600: #b91c1c;
+    --red-700: #991b1b;
+    --red-800: #7f1d1d;
+    --red-900: #450a0a;
+
+    /* Browns (café) */
+    --brown-50: #fdf8f6;
+    --brown-100: #f2e8e5;
+    --brown-200: #eaddd7;
+    --brown-300: #d6c3b6;
+    --brown-400: #b6a397;
+    --brown-500: #8b7355;
+    --brown-600: #6f5b3e;
+    --brown-700: #5a4a32;
+    --brown-800: #3d3226;
+    --brown-900: #2a2118;
+
+    /* Neutrals */
+    --white: #ffffff;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d4;
+    --gray-400: #a3a3a3;
+    --gray-500: #737373;
+    --gray-600: #525252;
+    --gray-700: #404040;
+    --gray-800: #262626;
+    --gray-900: #171717;
+    --black: #0a0a0a;
+
+    /* Semantic */
+    --primary: var(--red-500);
+    --primary-hover: var(--red-600);
+    --primary-light: var(--red-100);
+    --accent: var(--brown-500);
+    --accent-light: var(--brown-100);
+    --surface: var(--white);
+    --surface-alt: var(--gray-50);
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-500);
+    --text-muted: var(--gray-400);
+    --border: var(--gray-200);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    --shadow-glow: 0 0 30px rgba(220, 38, 38, 0.15);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Radius */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    background:
+        radial-gradient(circle at 8% 10%, rgba(220, 38, 38, 0.08), transparent 32%),
+        radial-gradient(circle at 85% 24%, rgba(139, 115, 85, 0.1), transparent 36%),
+        linear-gradient(180deg, #fffcfb 0%, #fff8f5 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+/* Utility: Section */
+.section-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-400);
+}
