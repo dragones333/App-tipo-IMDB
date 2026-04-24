@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-    <title>CineVault — Tu Guía de Cine y Entretenimiento</title>
+    <title>Dinamic Movies — Tu Guía de Cine y Entretenimiento</title>
     <meta name="description" content="Descubre películas, series, y celebridades. Encuentra recomendaciones personalizadas, explora por categoría y mantente al día con las estrellas del momento." />
 </svelte:head>
 
