@@ -5,6 +5,15 @@
     import RecommendedSection from "./components/RecommendedSection.svelte";
     import CategoriesSection from "./components/CategoriesSection.svelte";
     import CelebsSection from "./components/CelebsSection.svelte";
+    import { onMount } from "svelte";
+
+    let { data } = $props();
+    let celebrities = $state(data.celebrities);
+
+    onMount(() => {
+        $inspect("celebrities:", celebrities);
+    });
+
 </script>
 
 <svelte:head>
