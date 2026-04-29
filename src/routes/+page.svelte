@@ -5,6 +5,8 @@
     import RecommendedSection from "./components/RecommendedSection.svelte";
     import CategoriesSection from "./components/CategoriesSection.svelte";
     import CelebsSection from "./components/CelebsSection.svelte";
+
+    let { data } = $props();
 </script>
 
 <svelte:head>
@@ -15,10 +17,10 @@
 <Nav />
 
 <main>
-    <HeroCarousel />
-    <RecommendedSection />
-    <CategoriesSection />
-    <CelebsSection />
+    <HeroCarousel featured={data.featuredMovies} />
+    <RecommendedSection movies={data.recommendedMovies} />
+    <CategoriesSection categories={data.categories} />
+    <CelebsSection celebrities={data.celebrities} />
 </main>
 
 <Footer />

@@ -1,48 +1,15 @@
 <script>
-    const featured = [
-        {
-            id: 1,
-            title: "El Último Horizonte",
-            subtitle: "Una épica de ciencia ficción que redefine el género",
-            year: 2026,
-            rating: 9.2,
-            genre: "Ciencia Ficción",
-            duration: "2h 28min",
-            backdrop: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=1600&h=900&fit=crop",
-            poster: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=400&h=600&fit=crop"
-        },
-        {
-            id: 2,
-            title: "Corazones de Otoño",
-            subtitle: "El drama romántico más aclamado del año",
-            year: 2026,
-            rating: 8.7,
-            genre: "Romance · Drama",
-            duration: "1h 56min",
-            backdrop: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&h=900&fit=crop",
-            poster: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
-        },
-        {
-            id: 3,
-            title: "Sombras del Silencio",
-            subtitle: "El thriller psicológico que nadie vio venir",
-            year: 2025,
-            rating: 8.9,
-            genre: "Thriller · Misterio",
-            duration: "2h 12min",
-            backdrop: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=1600&h=900&fit=crop",
-            poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=400&h=600&fit=crop"
-        }
-    ];
-
+    let { featured = [] } = $props();
     let currentSlide = $state(0);
     let interval;
 
     function nextSlide() {
+        if (featured.length === 0) return;
         currentSlide = (currentSlide + 1) % featured.length;
     }
 
     function prevSlide() {
+        if (featured.length === 0) return;
         currentSlide = (currentSlide - 1 + featured.length) % featured.length;
     }
 
@@ -51,97 +18,94 @@
     }
 
     $effect(() => {
+        if (featured.length <= 1) {
+            return;
+        }
+
         interval = setInterval(nextSlide, 6000);
         return () => clearInterval(interval);
     });
 </script>
 
 <section class="hero" id="hero-section">
-    {#each featured as movie, i}
-        <div
-            class="hero-slide"
-            class:active={i === currentSlide}
-            style="background-image: url('{movie.backdrop}')"
-        >
-            <div class="slide-overlay"></div>
-        </div>
-    {/each}
+    {#if featured.length > 0}
+        {#each featured as movie, i}
+            <div
+                class="hero-slide"
+                class:active={i === currentSlide}
+                style="background-image: url('{movie.backdrop}')"
+            >
+                <div class="slide-overlay"></div>
+            </div>
+        {/each}
 
-    <div class="hero-content">
-        <div class="hero-inner section-container">
-            <div class="hero-text">
-                <div class="hero-badges">
-                    <span class="badge badge-trending">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                            <polyline points="17 6 23 6 23 12"></polyline>
-                        </svg>
-                        Tendencia #1
-                    </span>
-                    <span class="badge badge-year">{featured[currentSlide].year}</span>
-                </div>
-
-                <h1 class="hero-title">{featured[currentSlide].title}</h1>
-                <p class="hero-subtitle">{featured[currentSlide].subtitle}</p>
-
-                <div class="hero-meta">
-                    <div class="meta-item rating">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                        {featured[currentSlide].rating}
+        <div class="hero-content">
+            <div class="hero-inner section-container">
+                <div class="hero-text">
+                    <div class="hero-badges">
+                        <span class="badge badge-trending">Tendencia #1</span>
+                        {#if featured[currentSlide].year}
+                            <span class="badge badge-year">{featured[currentSlide].year}</span>
+                        {/if}
                     </div>
-                    <span class="meta-divider">|</span>
-                    <span class="meta-item">{featured[currentSlide].genre}</span>
-                    <span class="meta-divider">|</span>
-                    <span class="meta-item">{featured[currentSlide].duration}</span>
-                </div>
 
-                <div class="hero-actions">
-                    <button class="btn-primary" id="btn-watch-trailer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                        Ver Tráiler
-                    </button>
-                    <button class="btn-secondary" id="btn-more-info">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                        Más Info
-                    </button>
+                    <h1 class="hero-title">{featured[currentSlide].title}</h1>
+                    <p class="hero-subtitle">{featured[currentSlide].subtitle}</p>
+
+                    <div class="hero-meta">
+                        {#if featured[currentSlide].rating}
+                            <div class="meta-item rating">{featured[currentSlide].rating}</div>
+                            <span class="meta-divider">|</span>
+                        {/if}
+                        {#if featured[currentSlide].genre}
+                            <span class="meta-item">{featured[currentSlide].genre}</span>
+                            <span class="meta-divider">|</span>
+                        {/if}
+                        {#if featured[currentSlide].duration}
+                            <span class="meta-item">{featured[currentSlide].duration}</span>
+                        {/if}
+                    </div>
+
+                    <div class="hero-actions">
+                        <a class="btn-primary" href="/pelicula/{featured[currentSlide].id}">
+                            Ver detalles
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Navigation arrows -->
-    <button class="hero-nav hero-prev" onclick={prevSlide} aria-label="Anterior">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-    </button>
-    <button class="hero-nav hero-next" onclick={nextSlide} aria-label="Siguiente">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-    </button>
-
-    <!-- Dots -->
-    <div class="hero-dots">
-        {#each featured as _, i}
-            <button
-                class="dot"
-                class:active={i === currentSlide}
-                onclick={() => goToSlide(i)}
-                aria-label="Ir a slide {i + 1}"
-            >
-                <span class="dot-progress"></span>
+        {#if featured.length > 1}
+            <button class="hero-nav hero-prev" onclick={prevSlide} aria-label="Anterior">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
             </button>
-        {/each}
-    </div>
+            <button class="hero-nav hero-next" onclick={nextSlide} aria-label="Siguiente">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="hero-dots">
+                {#each featured as _, i}
+                    <button
+                        class="dot"
+                        class:active={i === currentSlide}
+                        onclick={() => goToSlide(i)}
+                        aria-label="Ir a slide {i + 1}"
+                    >
+                        <span class="dot-progress"></span>
+                    </button>
+                {/each}
+            </div>
+        {/if}
+    {:else}
+        <div class="hero-empty section-container">
+            <h1 class="hero-title">Dinamic Movies</h1>
+            <p class="hero-subtitle">Agrega peliculas desde la API para mostrarlas aqui.</p>
+        </div>
+    {/if}
 </section>
 
 <style>
@@ -151,6 +115,7 @@
         min-height: 550px;
         max-height: 800px;
         overflow: hidden;
+        background: #111;
     }
 
     .hero-slide {
@@ -180,7 +145,8 @@
         );
     }
 
-    .hero-content {
+    .hero-content,
+    .hero-empty {
         position: relative;
         z-index: 2;
         height: 100%;
@@ -199,10 +165,12 @@
         gap: 16px;
     }
 
-    .hero-badges {
+    .hero-badges,
+    .hero-meta,
+    .hero-actions {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     .badge {
@@ -233,7 +201,6 @@
         font-size: 3.5rem;
         font-weight: 900;
         color: var(--white);
-        letter-spacing: -0.03em;
         line-height: 1.05;
     }
 
@@ -244,17 +211,8 @@
     }
 
     .hero-meta {
-        display: flex;
-        align-items: center;
-        gap: 12px;
         color: rgba(255, 255, 255, 0.6);
         font-size: 0.9rem;
-    }
-
-    .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 5px;
     }
 
     .meta-item.rating {
@@ -264,13 +222,6 @@
 
     .meta-divider {
         color: rgba(255, 255, 255, 0.2);
-    }
-
-    .hero-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-top: 8px;
     }
 
     .btn-primary {
@@ -290,31 +241,8 @@
     .btn-primary:hover {
         background: var(--primary-hover);
         transform: translateY(-2px);
-        box-shadow: 0 8px 30px rgba(220, 38, 38, 0.45);
     }
 
-    .btn-secondary {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 14px 28px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
-        color: var(--white);
-        border: 1.5px solid rgba(255, 255, 255, 0.2);
-        border-radius: var(--radius-full);
-        font-size: 0.95rem;
-        font-weight: 600;
-        transition: all var(--transition-fast);
-    }
-
-    .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.35);
-        transform: translateY(-2px);
-    }
-
-    /* Navigation Arrows */
     .hero-nav {
         position: absolute;
         top: 50%;
@@ -351,7 +279,6 @@
         right: 24px;
     }
 
-    /* Dots */
     .hero-dots {
         position: absolute;
         bottom: 32px;
@@ -409,10 +336,6 @@
         }
         .hero-nav {
             display: none;
-        }
-        .hero-actions {
-            flex-direction: column;
-            align-items: flex-start;
         }
         .slide-overlay {
             background: linear-gradient(
