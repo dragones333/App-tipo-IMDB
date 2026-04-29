@@ -1,36 +1,24 @@
-import { json, error } from '@sveltejs/kit';
-import { celebrities } from '$lib/celebrities';
+import { getCelebrityById, deleteCelebrity, updateCelebrity } from "$lib/models/celebrities.js";
+import { json } from "@sveltejs/kit";
 
+
+// GET
 export async function GET({ params }) {
-    const id = parseInt(params.id);
-    const celebrity = celebrities.find(c => c.id === id);
+    const id = params.id;
+    const res = await getCelebrityById(id);
+    return json(res);
+}
 
-    if (!celebrity) throw error(404, 'Celebridad no encontrada');
-    return json(celebrity);
+// DELETE (FIXED)
+export async function DELETE({ params }) {
+    const id = params.id;
+    const res = await deleteCelebrity(id);
+    return json(res);
 }
 
 export async function PUT({ params, request }) {
-    const id = parseInt(params.id);
     const data = await request.json();
-    const index = celebrities.findIndex(c => c.id === id);
-
-    if (index === -1) throw error(404, 'No se pudo actualizar: no existe');
-
-    celebrities[index] = { ...celebrities[index], ...data, id };
-    
-    return json(celebrities[index]);
-}
-
-export async function DELETE({ params }) {
-    const id = parseInt(params.id);
-    const index = celebrities.findIndex(c => c.id === id);
-
-    if (index === -1) throw error(404, 'No se pudo eliminar: no existe');
-
-    const deleted = celebrities.splice(index, 1);
-    
-    return json({ 
-        message: 'Celebridad eliminada con éxito',
-        deleted: deleted[0] 
-    });
+    const id = params.id;
+    const res = await updateCelebrity(id, data.name, data.dob, data.bio);
+    return json(res);
 }
