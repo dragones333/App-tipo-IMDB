@@ -27,7 +27,7 @@
     <HeroCarousel />
     <RecommendedSection />
     <CategoriesSection />
-    <CelebsSection />
+    <CelebsSection {celebrities} />
 </main>
 
 <Footer />

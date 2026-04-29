@@ -1,8 +1,7 @@
 <script>
     import CelebCard from "$lib/components/CelebCard.svelte";
     import SectionHeader from "$lib/components/SectionHeader.svelte";
-
-    const celebrities = [
+    let { celebrities = [
         {
             id: 1,
             name: "Alejandro Montero",
@@ -59,7 +58,8 @@
             photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop&crop=face",
             trending: true
         }
-    ];
+    ]} = $props();
+
 </script>
 
 <section class="celebs-section" id="celebridades">
