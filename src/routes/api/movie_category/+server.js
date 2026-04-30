@@ -33,3 +33,9 @@ export async function POST({ request }) {
 
     return json(res);
 }
+
+// { "movie_id": 6, "category_id": 6 }
+// { "movie_id": 7, "category_id": 7 }
+// { "movie_id": 8, "category_id": 7 }
+// { "movie_id": 9, "category_id": 8 }
+// { "movie_id": 10, "category_id": 10 }
