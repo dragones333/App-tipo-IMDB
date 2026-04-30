@@ -22,7 +22,8 @@ export async function POST({ request }){
         data.duration,
         data.director,
         data.synopsis,
-        data.release_date
+        data.release_date,
+        data.image_url   // 👈 NEW
     );
 
     return json(res);
