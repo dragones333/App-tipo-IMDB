@@ -21,3 +21,8 @@ export async function POST({ request }){
     return json(res);
 }
 
+// { "name": "Action" }
+// { "name": "Sci-Fi" }
+// { "name": "Drama" }
+// { "name": "Comedy" }
+// { "name": "Thriller" }
