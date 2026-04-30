@@ -59,7 +59,7 @@
 
     <div class="carousel-wrapper">
 
-      <button class="scroll-btn left" on:click={scrollLeft}>
+      <button class="scroll-btn left" onclick={scrollLeft}>
         ◀
       </button>
 
@@ -69,7 +69,7 @@
         {/each}
       </div>
 
-      <button class="scroll-btn right" on:click={scrollRight}>
+      <button class="scroll-btn right" onclick={scrollRight}>
         ▶
       </button>
 

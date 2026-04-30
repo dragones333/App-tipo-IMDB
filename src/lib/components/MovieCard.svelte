@@ -7,16 +7,16 @@
         <img src={movie.poster} alt={movie.title} class="poster" loading="lazy" />
         <div class="poster-overlay">
             <div class="overlay-actions">
-                <button class="btn-icon" title="Agregar a lista">
+                <span class="btn-icon" title="Agregar a lista" aria-label="Agregar a lista">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
                     </svg>
-                </button>
-                <button class="btn-play" title="Ver trailer">
+                </span>
+                <span class="btn-play" title="Ver trailer" aria-label="Ver trailer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                </button>
+                </span>
             </div>
         </div>
         {#if movie.rating}
