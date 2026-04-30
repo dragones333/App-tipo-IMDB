@@ -5,6 +5,7 @@
     import RecommendedSection from "./components/RecommendedSection.svelte";
     import CategoriesSection from "./components/CategoriesSection.svelte";
     import CelebsSection from "./components/CelebsSection.svelte";
+    import PeliculasSection from "./components/PeliculasSection.svelte";
 </script>
 
 <svelte:head>
@@ -18,6 +19,7 @@
     <HeroCarousel />
     <RecommendedSection />
     <CategoriesSection />
+    <PeliculasSection /> 
     <CelebsSection />
 </main>
 
