@@ -1,14 +1,13 @@
-import { 
-    createMovie, 
-    getMovies 
-} from "$lib/models/movie.js";
 
 import { json } from "@sveltejs/kit";
+import { getFilteredMovies, createMovie } from "$lib/models/movie.js";
 
+export async function GET({ url }) {
+    const rating = url.searchParams.get("rating") || null;
+const category = url.searchParams.get("category") || null;
+const actor = url.searchParams.get("actor") || null;
 
-// GET ALL MOVIES
-export async function GET(){
-    const res = await getMovies();
+    const res = await getFilteredMovies({ rating, category, actor });
     return json(res);
 }
 
@@ -30,52 +29,32 @@ export async function POST({ request }){
     return json(res);
 }
 
-// {
-//   "title": "Iron Man",
-//   "duration": 126,
-//   "director": "Jon Favreau",
-//   "synopsis": "Tony Stark becomes a hero.",
-//   "release_date": "2008-05-02",
-//   "image_url": "https://example.com/ironman.jpg",
-//   "rating": 8.0
-// }
 
-// {
-//   "title": "Inception",
-//   "duration": 148,
-//   "director": "Christopher Nolan",
-//   "synopsis": "Dream worlds collide.",
-//   "release_date": "2010-07-16",
-//   "image_url": "https://example.com/inception.jpg",
-//   "rating": 8.8
-// }
 
-// {
-//   "title": "The Matrix",
-//   "duration": 136,
-//   "director": "Wachowski Sisters",
-//   "synopsis": "Reality is fake.",
-//   "release_date": "1999-03-31",
-//   "image_url": "https://example.com/matrix.jpg",
-//   "rating": 8.7
-// }
 
-// {
-//   "title": "Forrest Gump",
-//   "duration": 142,
-//   "director": "Robert Zemeckis",
-//   "synopsis": "Life story of Forrest.",
-//   "release_date": "1994-07-06",
-//   "image_url": "https://example.com/forrest.jpg",
-//   "rating": 8.8
-// }
+// # BASE (no filters)
+// http://localhost:5173/api/movie
 
-// {
-//   "title": "Lucy",
-//   "duration": 89,
-//   "director": "Luc Besson",
-//   "synopsis": "A woman gains powers.",
-//   "release_date": "2014-07-25",
-//   "image_url": "https://example.com/lucy.jpg",
-//   "rating": 6.4
-// }
+// # RATING
+// http://localhost:5173/api/movie?rating=8
+
+// # CATEGORY
+// http://localhost:5173/api/movie?category=1
+
+// # ACTOR
+// http://localhost:5173/api/movie?actor=5
+
+
+// # COMBINATIONS
+
+// # rating + category
+// http://localhost:5173/api/movie?rating=8&category=1
+
+// # rating + actor
+// http://localhost:5173/api/movie?rating=8&actor=5
+
+// # category + actor
+// http://localhost:5173/api/movie?category=1&actor=5
+
+// # ALL FILTERS
+// http://localhost:5173/api/movie?rating=8&category=1&actor=5
