@@ -2,12 +2,12 @@ import { query } from "$lib/db";
 
 
 // CREATE
-export async function createMovie(title, duration, director, synopsis, release_date, image_url){
+export async function createMovie(title, duration, director, synopsis, release_date, image_url, rating){
     try {
         const res = await query(
-            `INSERT INTO movies (title, duration, director, synopsis, release_date, image_url)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [title, duration, director, synopsis, release_date, image_url]
+            `INSERT INTO movies (title, duration, director, synopsis, release_date, image_url, rating)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [title, duration, director, synopsis, release_date, image_url, rating]
         );
 
         return { success: true, data: res };
@@ -74,13 +74,13 @@ export async function deleteMovie(id){
 
 
 // UPDATE
-export async function updateMovie(id, title, duration, director, synopsis, release_date, image_url){
+export async function updateMovie(id, title, duration, director, synopsis, release_date, image_url, rating){
     try {
         const res = await query(
             `UPDATE movies 
-             SET title = ?, duration = ?, director = ?, synopsis = ?, release_date = ?, image_url = ?
+             SET title = ?, duration = ?, director = ?, synopsis = ?, release_date = ?, image_url = ?, rating = ?
              WHERE id = ?`,
-            [title, duration, director, synopsis, release_date, image_url, id]
+            [title, duration, director, synopsis, release_date, image_url, rating, id]
         );
 
         return { success: true, data: res };

@@ -36,7 +36,8 @@ export async function PUT({ params, request }) {
         director,
         synopsis,
         release_date,
-        image_url   // 👈 NEW
+        image_url,
+        rating   // 👈 NEW
     } = data;
 
     const res = await updateMovie(
@@ -46,7 +47,8 @@ export async function PUT({ params, request }) {
         director,
         synopsis,
         release_date,
-        image_url   // 👈 NEW
+        image_url,
+        rating   // 👈 NEW
     );
 
     return json(res);

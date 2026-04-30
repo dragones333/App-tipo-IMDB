@@ -23,7 +23,8 @@ export async function POST({ request }){
         data.director,
         data.synopsis,
         data.release_date,
-        data.image_url   // 👈 NEW
+        data.image_url,
+        data.rating   // 👈 NEW
     );
 
     return json(res);
