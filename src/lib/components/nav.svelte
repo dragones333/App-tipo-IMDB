@@ -25,9 +25,9 @@
         <!-- LINKS -->
         <div class:show-mobile={mobileOpen} class="nav-links">
             <a href="/" class="active">Inicio</a>
-            <a href="#recomendadas">Películas</a>
-            <a href="#categorias">Categorías</a>
-            <a href="#celebridades">Celebridades</a>
+            <a href="/peliculas">Películas</a>
+            <a href="/#categorias">Categorías</a>
+            <a href="/celebridades">Celebridades</a>
         </div>
 
         <!-- ACTIONS -->
