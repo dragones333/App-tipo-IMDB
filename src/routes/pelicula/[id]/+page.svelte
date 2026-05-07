@@ -53,10 +53,6 @@
 
                     <p class="synopsis">{movie.synopsis}</p>
 
-                    <div class="actions">
-                        <button class="btn-primary">Ver trailer</button>
-                        <button class="btn-secondary">Agregar a lista</button>
-                    </div>
                 </div>
             </div>
         </div>
