@@ -55,7 +55,7 @@
 
                     <div class="actions">
                        
-                        <button class="btn-secondary">Agregar a lista</button>
+                        
                     </div>
                 </div>
             </div>
