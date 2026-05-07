@@ -43,9 +43,7 @@
                 
             </div>
 
-            <button class="login-btn">
-                Iniciar sesión
-            </button>
+            
 
             <button class="menu-btn" onclick={toggleMenu}>
                 ☰
