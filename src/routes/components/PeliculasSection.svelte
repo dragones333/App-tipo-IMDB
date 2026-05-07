@@ -48,35 +48,6 @@
   }
 </script>
 
-<section class="movies-section" id="peliculas">
-  <div class="section-container">
-
-    <SectionHeader
-      title="Películas"
-      subtitle="Descubre lo mejor del momento"
-      viewAllHref="/peliculas"
-    />
-
-    <div class="carousel-wrapper">
-
-      <button class="scroll-btn left" onclick={scrollLeft}>
-        ◀
-      </button>
-
-      <div class="movies-scroll" bind:this={scrollContainer}>
-        {#each movies as movie (movie.id)}
-          <MovieCard {movie} />
-        {/each}
-      </div>
-
-      <button class="scroll-btn right" onclick={scrollRight}>
-        ▶
-      </button>
-
-    </div>
-
-  </div>
-</section>
 
 <style>
 .movies-section {
