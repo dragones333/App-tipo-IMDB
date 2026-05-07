@@ -1,11 +1,39 @@
-import { json } from '@sveltejs/kit';
-import { getAllCelebrities } from '$lib/models/celebrities';
+import { 
+    createCelebrity, 
+    getCelebrities 
+} from "$lib/models/celebrities";
 
-export async function GET() {
-    const celebrities = await getAllCelebrities();
-    return json({ success: true, data: celebrities}, {status: 200});
+import { json } from "@sveltejs/kit";
+
+
+// GET ALL
+export async function GET(){
+    const res = await getCelebrities();
+    return json(res);
 }
-
+// CREATE
 export async function POST({ request }) {
-    //TODO: Implementar POST
+    const data = await request.json();
+
+    const res = await createCelebrity(
+        data.name,
+        data.dob,
+        data.bio
+    );
+
+    return json(res);
 }
+
+// {
+//   "name": "Robert Downey Jr.",
+//   "dob": "1965-04-04",
+//   "bio": "Known for Iron Man.",
+//   "photo": "https://example.com/rdj.jpg"
+// }
+
+// {
+//   "name": "Scarlett Johansson",
+//   "dob": "1984-11-22",
+//   "bio": "Known for Black Widow.",
+//   "photo": "https://example.com/scarlett.jpg"
+// }

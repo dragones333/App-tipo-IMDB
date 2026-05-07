@@ -1,32 +1,87 @@
-import { query } from "$lib/db"
+import { query } from "$lib/db";
 
-export async function getAllCelebrities() {
-    const res = await query("SELECT * FROM celebrities ORDER BY id DESC");
-    return res;
+// CREATE
+export async function createCelebrity(name, dob, bio){
+    try {
+        const res = await query(
+            `INSERT INTO celebrities (name, dob, bio)
+             VALUES (?, ?, ?)`,
+            [name, dob, bio]
+        );
+
+        return { success: true, data: res };
+
+    } catch (error) {
+        return { success: false, data: [], message: "Error del servidor" };
+    }
 }
 
-export async function getCelebrityById(id) {
-    const res = await query("SELECT * FROM celebrities WHERE id = ?", [id]);
-    return res[0];
+
+// GET ALL
+export async function getCelebrities(){
+    try {
+        const res = await query("SELECT * FROM celebrities");
+        return { success: true, data: res };
+
+    } catch (error) {
+        return { success: false, data: [], message: "Error del servidor" };
+    }
 }
 
-export async function createCelebrity(data) {
-    const res = await query(
-        "INSERT INTO celebrities (name, dob, bio) VALUES (?, ?, ?)",
-        [data.name, data.dob || null, data.bio || null]
-    );
-    return res;
+
+// GET ONE
+export async function getCelebrityById(id){
+    try {
+        const res = await query(
+            "SELECT * FROM celebrities WHERE id = ?",
+            [id]
+        );
+
+        if (res.length === 0) {
+            return {
+                success: false,
+                message: "Celebrity not found",
+                status: 404
+            };
+        }
+
+        return { success: true, data: res[0] };
+
+    } catch (error) {
+        return { success: false, message: "Error getting celebrity" };
+    }
 }
 
-export async function updateCelebrity(id, data) {
-    const res = await query(
-        "UPDATE celebrities SET name = ?, dob = ?, bio = ? WHERE id = ?",
-        [data.name, data.dob || null, data.bio || null, id]
-    );
-    return res;
+
+// DELETE
+export async function deleteCelebrity(id){
+    try {
+        const res = await query(
+            "DELETE FROM celebrities WHERE id = ?",
+            [id]
+        );
+
+        return { success: true, data: res };
+
+    } catch (error) {
+        return { success: false, message: "Error deleting celebrity" };
+    }
 }
 
-export async function deleteCelebrity(id) {
-    const res = await query("DELETE FROM celebrities WHERE id = ?", [id]);
-    return res;
+
+// UPDATE
+export async function updateCelebrity(id, name, dob, bio){
+    try {
+        const res = await query(
+            `UPDATE celebrities 
+             SET name = ?, dob = ?, bio = ?
+             WHERE id = ?`,
+            [name, dob, bio, id]
+        );
+
+        return { success: true, data: res };
+
+    } catch (error) {
+        return { success: false, message: "Error updating celebrity" };
+    }
 }

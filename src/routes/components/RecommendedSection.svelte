@@ -2,73 +2,7 @@
     import MovieCard from "$lib/components/MovieCard.svelte";
     import SectionHeader from "$lib/components/SectionHeader.svelte";
 
-    const recommended = [
-        {
-            id: 1,
-            title: "El Último Horizonte",
-            year: 2026,
-            rating: 9.2,
-            genre: "Sci-Fi",
-            poster: "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=400&h=600&fit=crop"
-        },
-        {
-            id: 2,
-            title: "Corazones de Otoño",
-            year: 2026,
-            rating: 8.7,
-            genre: "Romance",
-            poster: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=600&fit=crop"
-        },
-        {
-            id: 3,
-            title: "Sombras del Silencio",
-            year: 2025,
-            rating: 8.9,
-            genre: "Thriller",
-            poster: "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=400&h=600&fit=crop"
-        },
-        {
-            id: 4,
-            title: "Aventura Salvaje",
-            year: 2026,
-            rating: 8.1,
-            genre: "Animación",
-            poster: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=600&fit=crop"
-        },
-        {
-            id: 5,
-            title: "Noches de Neón",
-            year: 2025,
-            rating: 8.4,
-            genre: "Crimen",
-            poster: "https://images.unsplash.com/photo-1514539079130-25950c84af65?w=400&h=600&fit=crop"
-        },
-        {
-            id: 6,
-            title: "El Dragón Eterno",
-            year: 2026,
-            rating: 8.6,
-            genre: "Fantasía",
-            poster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=400&h=600&fit=crop"
-        },
-        {
-            id: 7,
-            title: "Risas al Límite",
-            year: 2025,
-            rating: 7.8,
-            genre: "Comedia",
-            poster: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=600&fit=crop"
-        },
-        {
-            id: 8,
-            title: "Tierra Primitiva",
-            year: 2026,
-            rating: 9.0,
-            genre: "Documental",
-            poster: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop"
-        }
-    ];
-
+    let { movies = [] } = $props();
     let scrollContainer;
 
     function scrollLeft() {
@@ -84,7 +18,7 @@
     <div class="section-container">
         <SectionHeader
             title="Recomendadas para Ti"
-            subtitle="Las películas más populares de esta semana"
+            subtitle="Las peliculas mas populares de esta semana"
             viewAllHref="/peliculas"
         />
 
@@ -96,9 +30,13 @@
             </button>
 
             <div class="movies-scroll" bind:this={scrollContainer}>
-                {#each recommended as movie (movie.id)}
-                    <MovieCard {movie} />
-                {/each}
+                {#if movies.length > 0}
+                    {#each movies as movie (movie.id)}
+                        <MovieCard {movie} />
+                    {/each}
+                {:else}
+                    <p class="empty-state">No hay peliculas registradas.</p>
+                {/if}
             </div>
 
             <button class="scroll-btn scroll-right" onclick={scrollRight} aria-label="Desplazar derecha">
@@ -135,6 +73,11 @@
 
     .movies-scroll > :global(*) {
         scroll-snap-align: start;
+    }
+
+    .empty-state {
+        color: var(--text-secondary);
+        padding: 24px 0;
     }
 
     .scroll-btn {

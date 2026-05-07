@@ -1,6 +1,6 @@
 <script>
-    let scrolled = false;
-    let mobileOpen = false;
+    let scrolled = $state(false);
+    let mobileOpen = $state(false);
 
     function handleScroll() {
         scrolled = window.scrollY > 15;
@@ -11,7 +11,7 @@
     }
 </script>
 
-<svelte:window on:scroll={handleScroll} />
+<svelte:window onscroll={handleScroll} />
 
 <nav class:scrolled>
     <div class="nav-container">
@@ -46,7 +46,7 @@
                 Iniciar sesión
             </button>
 
-            <button class="menu-btn" on:click={toggleMenu}>
+            <button class="menu-btn" onclick={toggleMenu}>
                 ☰
             </button>
         </div>

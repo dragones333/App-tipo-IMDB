@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# App-tipo-IMDB
+=======
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
@@ -40,3 +43,4 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+>>>>>>> 5877450579214f5faafe87d79c2598958d1e3f9a

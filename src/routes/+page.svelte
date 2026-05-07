@@ -5,15 +5,9 @@
     import RecommendedSection from "./components/RecommendedSection.svelte";
     import CategoriesSection from "./components/CategoriesSection.svelte";
     import CelebsSection from "./components/CelebsSection.svelte";
-    import { onMount } from "svelte";
+    import PeliculasSection from "./components/PeliculasSection.svelte";
 
     let { data } = $props();
-    let celebrities = $state(data.celebrities);
-
-    onMount(() => {
-        $inspect("celebrities:", celebrities);
-    });
-
 </script>
 
 <svelte:head>
@@ -24,10 +18,11 @@
 <Nav />
 
 <main>
-    <HeroCarousel />
-    <RecommendedSection />
-    <CategoriesSection />
-    <CelebsSection {celebrities} />
+    <HeroCarousel featured={data.featuredMovies} />
+    <RecommendedSection movies={data.recommendedMovies} />
+    <CategoriesSection categories={data.categories} />
+    <PeliculasSection />
+    <CelebsSection celebrities={data.celebrities} />
 </main>
 
 <Footer />
