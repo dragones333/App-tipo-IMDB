@@ -2,7 +2,7 @@
     <div class="footer-inner">
         <div class="footer-top">
             <div class="footer-brand">
-                <img src="/logos/logo.png" alt="CineVault" class="footer-logo" />
+                <img src="/logos/logo-no-bg.png" alt="Dinamic Movies" class="footer-logo" />
                 <p class="footer-tagline">Tu guía definitiva para el mundo del cine y el entretenimiento.</p>
             </div>
             <div class="footer-links-group">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 CineVault. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Dinamic Movies. Todos los derechos reservados.</p>
             <div class="social-links">
                 <a href="/" class="social-link" title="Twitter">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
@@ -70,8 +70,7 @@
     }
 
     .footer-logo {
-        height: 40px;
-        filter: brightness(0) invert(1);
+        height: 90px;
         margin-bottom: 14px;
     }
 

@@ -37,24 +37,3 @@ export async function POST({ request }) {
 //   "bio": "Known for Black Widow.",
 //   "photo": "https://example.com/scarlett.jpg"
 // }
-
-// {
-//   "name": "Leonardo DiCaprio",
-//   "dob": "1974-11-11",
-//   "bio": "Known for Inception.",
-//   "photo": "https://example.com/leo.jpg"
-// }
-
-// {
-//   "name": "Tom Hanks",
-//   "dob": "1956-07-09",
-//   "bio": "Known for Forrest Gump.",
-//   "photo": "https://example.com/tomhanks.jpg"
-// }
-
-// {
-//   "name": "Keanu Reeves",
-//   "dob": "1964-09-02",
-//   "bio": "Known for Matrix.",
-//   "photo": "https://example.com/keanu.jpg"
-// }

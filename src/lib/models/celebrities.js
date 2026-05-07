@@ -1,6 +1,5 @@
 import { query } from "$lib/db";
 
-
 // CREATE
 export async function createCelebrity(name, dob, bio){
     try {
