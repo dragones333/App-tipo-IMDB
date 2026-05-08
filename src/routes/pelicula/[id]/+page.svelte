@@ -53,6 +53,10 @@
 
                     <p class="synopsis">{movie.synopsis}</p>
 
+                    <div class="actions">
+                       
+                        
+                    </div>
                 </div>
             </div>
         </div>
