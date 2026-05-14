@@ -3,6 +3,13 @@
     import SectionHeader from "$lib/components/SectionHeader.svelte";
 
     let { celebrities = [] } = $props();
+
+    function getSafeImageUrl(celeb) {
+    if (celeb.photo && celeb.photo.trim() !== "") {
+        return celeb.photo;
+    }
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(celeb.name)}&background=random&size=256`;
+    }
 </script>
 
 <section class="celebs-section" id="celebridades">
@@ -19,18 +26,21 @@
                 {#each celebrities as celeb (celeb.id)}
                     <div class="celeb-wrapper">
                         {#if celeb.trending}
-                            <div class="trending-indicator">
+                            <div class="trending-indicator" title="Tendencia hoy">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
                                     <polyline points="17 6 23 6 23 12"></polyline>
                                 </svg>
                             </div>
                         {/if}
-                        <CelebCard {celeb} />
+                        
+                        <CelebCard {celeb} imageUrl={getSafeImageUrl(celeb)} />
                     </div>
                 {/each}
             {:else}
-                <p class="empty-state">No hay celebridades registradas.</p>
+                <div class="empty-state-container">
+                    <p class="empty-state">No hay celebridades registradas.</p>
+                </div>
             {/if}
         </div>
     </div>
@@ -60,10 +70,10 @@
         font-size: 0.72rem;
         letter-spacing: 0.16em;
         font-weight: 700;
-        color: var(--red-700);
+        color: #b91c1c; 
         background: linear-gradient(90deg, #fff2ec 0%, #ffe8df 100%);
         border: 1px solid #ffd5c6;
-        border-radius: var(--radius-full);
+        border-radius: 9999px; 
         padding: 8px 12px;
         margin-bottom: 18px;
         box-shadow: 0 10px 30px rgba(220, 38, 38, 0.08);
@@ -88,8 +98,10 @@
     }
 
     .empty-state {
-        color: var(--text-secondary);
+        color: #6b7280;
         padding: 24px 0;
+        text-align: center;
+        width: 100%;
     }
 
     .trending-indicator {

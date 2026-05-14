@@ -1,16 +1,14 @@
 import { query } from "$lib/db";
 
 // CREATE
-export async function createCelebrity(name, dob, bio){
+export async function createCelebrity(name, dob, bio, image_url = null){
     try {
         const res = await query(
-            `INSERT INTO celebrities (name, dob, bio)
-             VALUES (?, ?, ?)`,
-            [name, dob, bio]
+            `INSERT INTO celebrities (name, dob, bio, image_url)
+             VALUES (?, ?, ?, ?)`,
+            [name, dob, bio, image_url]
         );
-
         return { success: true, data: res };
-
     } catch (error) {
         return { success: false, data: [], message: "Error del servidor" };
     }
@@ -22,7 +20,6 @@ export async function getCelebrities(){
     try {
         const res = await query("SELECT * FROM celebrities");
         return { success: true, data: res };
-
     } catch (error) {
         return { success: false, data: [], message: "Error del servidor" };
     }
@@ -70,17 +67,15 @@ export async function deleteCelebrity(id){
 
 
 // UPDATE
-export async function updateCelebrity(id, name, dob, bio){
+export async function updateCelebrity(id, name, dob, bio, image_url){
     try {
         const res = await query(
             `UPDATE celebrities 
-             SET name = ?, dob = ?, bio = ?
+             SET name = ?, dob = ?, bio = ?, image_url = ?
              WHERE id = ?`,
-            [name, dob, bio, id]
+            [name, dob, bio, image_url, id]
         );
-
         return { success: true, data: res };
-
     } catch (error) {
         return { success: false, message: "Error updating celebrity" };
     }
