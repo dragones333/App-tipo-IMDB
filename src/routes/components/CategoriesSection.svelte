@@ -87,10 +87,10 @@
     }
 
     .tab-btn.active {
-        background: var(--white);
-        color: var(--text-primary);
+        background: #fff5f5;
+        color: var(--red-700);
         border-color: var(--primary);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 22px rgba(153, 27, 27, 0.1);
     }
 
     .movies-grid {
