@@ -18,8 +18,7 @@
 
         <!-- LOGO -->
         <a href="/" class="logo">
-            <img src="/logos/logo.png" alt="CineVault" />
-            <span>CineVault</span>
+            <img src="/logos/logo-no-bg.png" height="80" alt="Dinamic Movies" />
         </a>
 
         <!-- LINKS -->
@@ -89,19 +88,14 @@ nav.scrolled{
     color:white;
     font-size:1.2rem;
     font-weight:700;
+    height: 100%;
 }
 
 .logo img{
-    width:42px;
-    height:42px;
+    height: 90%;
     object-fit:contain;
 }
 
-.logo span{
-    background:linear-gradient(90deg,#ff3c3c,#ff8a00);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
 
 /* LINKS */
 .nav-links{
