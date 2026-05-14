@@ -37,6 +37,11 @@
 <main>
   <section class="celebrities-page">
     <div class="section-container">
+      <a href="/" class="back-home" aria-label="Regresar al menu principal">
+        <span aria-hidden="true">←</span>
+        Menu principal
+      </a>
+
       <SectionHeader
         title="Actores y Celebridades"
         subtitle="Busca, filtra y descubre perfiles desde tu backend"
@@ -118,6 +123,34 @@
 
   .celebrities-page {
     padding: 118px 0 70px;
+  }
+
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(139, 115, 85, 0.14);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(42, 33, 24, 0.06);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .back-home:hover {
+    transform: translateX(-3px);
+    border-color: rgba(220, 38, 38, 0.26);
+    box-shadow: 0 14px 30px rgba(42, 33, 24, 0.1);
+  }
+
+  .back-home span {
+    font-size: 1.1rem;
+    line-height: 1;
   }
 
   .catalog-toolbar {
