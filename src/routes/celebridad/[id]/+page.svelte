@@ -1,61 +1,61 @@
 <script>
     import Nav from "$lib/components/nav.svelte";
     import Footer from "$lib/components/Footer.svelte";
+    import MovieCard from "$lib/components/MovieCard.svelte";
 
     let { data } = $props();
-    let movie = $derived(data.movie);
-    let cast = $derived(data.cast);
+    let celebrity = $derived(data.celebrity);
+    let credits = $derived(data.credits);
+    let movies = $derived(data.movies);
 </script>
 
 <svelte:head>
-    <title>{movie.title} | Dinamic Movies</title>
-    <meta name="description" content={movie.synopsis} />
+    <title>{celebrity.name} | Dinamic Movies</title>
+    <meta name="description" content={celebrity.bio} />
 </svelte:head>
 
 <Nav />
 
 <main>
-    <section class="movie-hero">
-        <div class="hero-backdrop" style="background-image: url('{movie.backdrop}')"></div>
+    <section class="celebrity-hero">
+        <div class="hero-backdrop" style="background-image: url('{celebrity.photo}')"></div>
         <div class="hero-overlay"></div>
 
         <div class="section-container hero-content">
             <a href="/" class="back-link">Volver al inicio</a>
 
-            <div class="movie-layout">
-                <div class="poster-frame">
-                    <img src={movie.poster} alt={movie.title} />
+            <div class="celebrity-layout">
+                <div class="portrait-frame">
+                    <img src={celebrity.photo} alt={celebrity.name} />
                 </div>
 
-                <div class="movie-info">
-                    <div class="eyebrow">Detalle de pelicula</div>
-                    <h1>{movie.title}</h1>
+                <div class="celebrity-info">
+                    <div class="eyebrow">Detalle de celebridad</div>
+                    <h1>{celebrity.name}</h1>
 
                     <div class="meta-row">
-                        {#if movie.year}
-                            <span>{movie.year}</span>
+                        {#if celebrity.knownFor}
+                            <span>{celebrity.knownFor}</span>
                         {/if}
-                        {#if movie.duration}
-                            <span>{movie.duration}</span>
+                        {#if celebrity.dob}
+                            <span>{celebrity.dob}</span>
                         {/if}
-                        {#if movie.releaseDate}
-                            <span>{movie.releaseDate}</span>
+                        {#if celebrity.popularity}
+                            <span>{celebrity.popularity} popularidad</span>
                         {/if}
                     </div>
 
-                    {#if movie.genres.length > 0}
-                        <div class="genre-list">
-                            {#each movie.genres as genre}
-                                <span>{genre}</span>
-                            {/each}
+                    <p class="bio">{celebrity.bio}</p>
+
+                    <div class="stats-row">
+                        <div class="stat-pill">
+                            <strong>{movies.length}</strong>
+                            <span>{movies.length === 1 ? 'pelicula' : 'peliculas'}</span>
                         </div>
-                    {/if}
-
-                    <p class="synopsis">{movie.synopsis}</p>
-
-                    <div class="actions">
-                       
-                        
+                        <div class="stat-pill">
+                            <strong>{credits.length}</strong>
+                            <span>{credits.length === 1 ? 'credito' : 'creditos'}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,61 +66,80 @@
         <div class="section-container details-grid">
             <div class="detail-block">
                 <div class="block-heading">
-                    <h2>Detalles de la pelicula</h2>
-                    <p>Datos principales registrados en la base de datos.</p>
+                    <h2>Informacion principal</h2>
+                    <p>Datos registrados para esta celebridad.</p>
                 </div>
 
                 <div class="info-list">
                     <div class="info-item primary-info">
-                        <span class="info-label">Director</span>
-                        <strong>{movie.director || 'Sin director registrado'}</strong>
+                        <span class="info-label">Nombre</span>
+                        <strong>{celebrity.name}</strong>
                     </div>
 
                     <div class="info-item">
-                        <span class="info-label">Estreno</span>
-                        <strong>{movie.releaseDate || 'Sin fecha registrada'}</strong>
+                        <span class="info-label">Nacimiento</span>
+                        <strong>{celebrity.dob || 'Sin fecha registrada'}</strong>
                     </div>
 
                     <div class="info-item">
-                        <span class="info-label">Duracion</span>
-                        <strong>{movie.duration || 'Sin duracion registrada'}</strong>
+                        <span class="info-label">Conocido por</span>
+                        <strong>{celebrity.knownFor || 'Sin rol registrado'}</strong>
                     </div>
 
-                    <div class="info-item">
-                        <span class="info-label">Categorias</span>
-                        <strong>{movie.genres.length > 0 ? movie.genres.join(', ') : 'Sin categorias'}</strong>
+                    <div class="info-item full-info">
+                        <span class="info-label">Biografia</span>
+                        <strong>{celebrity.bio}</strong>
                     </div>
                 </div>
             </div>
 
             <div class="detail-block">
                 <div class="block-heading">
-                    <h2>Creditos y reparto</h2>
+                    <h2>Creditos</h2>
                     <p>
-                        {cast.length > 0
-                            ? `${cast.length} ${cast.length === 1 ? 'participacion registrada' : 'participaciones registradas'}`
-                            : 'Aun no hay participaciones registradas'}
+                        {credits.length > 0
+                            ? `${credits.length} ${credits.length === 1 ? 'participacion registrada' : 'participaciones registradas'}`
+                            : 'Aun no hay creditos registrados'}
                     </p>
                 </div>
 
-                {#if cast.length > 0}
-                    <div class="cast-list">
-                        {#each cast as person}
-                            <div class="cast-item">
-                                <div class="cast-avatar">
-                                    {person.name?.slice(0, 1) || '?'}
+                {#if credits.length > 0}
+                    <div class="credits-list">
+                        {#each credits as credit}
+                            <a class="credit-item" href={credit.movieId ? `/pelicula/${credit.movieId}` : '/peliculas'}>
+                                <div class="credit-icon">
+                                    {credit.movie?.slice(0, 1) || '?'}
                                 </div>
-                                <div class="cast-copy">
-                                    <strong>{person.name}</strong>
-                                    <span>{person.role || 'Participacion'}</span>
+                                <div class="credit-copy">
+                                    <strong>{credit.movie}</strong>
+                                    <span>{credit.role || 'Participacion'}</span>
                                 </div>
-                            </div>
+                            </a>
                         {/each}
                     </div>
                 {:else}
-                    <p class="empty-state">No hay reparto registrado para esta pelicula.</p>
+                    <p class="empty-state">No hay creditos registrados para esta celebridad.</p>
                 {/if}
             </div>
+        </div>
+    </section>
+
+    <section class="filmography-section">
+        <div class="section-container">
+            <div class="block-heading filmography-heading">
+                <h2>Filmografia</h2>
+                <p>Peliculas relacionadas con {celebrity.name}.</p>
+            </div>
+
+            {#if movies.length > 0}
+                <div class="movies-grid">
+                    {#each movies as movie (movie.id)}
+                        <MovieCard {movie} />
+                    {/each}
+                </div>
+            {:else}
+                <p class="empty-state">No hay peliculas registradas para esta celebridad.</p>
+            {/if}
         </div>
     </section>
 </main>
@@ -132,9 +151,9 @@
         min-height: 100vh;
     }
 
-    .movie-hero {
+    .celebrity-hero {
         position: relative;
-        min-height: 760px;
+        min-height: 720px;
         color: var(--white);
         overflow: hidden;
         background: #111;
@@ -148,15 +167,16 @@
 
     .hero-backdrop {
         background-size: cover;
-        background-position: center;
-        transform: scale(1.04);
-        filter: saturate(1.05);
+        background-position: center 22%;
+        transform: scale(1.08);
+        filter: blur(12px) saturate(1.08);
+        opacity: 0.72;
     }
 
     .hero-overlay {
         background:
-            linear-gradient(90deg, rgba(8, 8, 8, 0.94) 0%, rgba(8, 8, 8, 0.72) 48%, rgba(8, 8, 8, 0.36) 100%),
-            linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.95) 100%);
+            linear-gradient(90deg, rgba(8, 8, 8, 0.96) 0%, rgba(8, 8, 8, 0.72) 54%, rgba(8, 8, 8, 0.38) 100%),
+            linear-gradient(180deg, rgba(8, 8, 8, 0.2) 0%, rgba(8, 8, 8, 0.95) 100%);
     }
 
     .hero-content {
@@ -179,33 +199,32 @@
         color: var(--white);
     }
 
-    .movie-layout {
+    .celebrity-layout {
         display: grid;
-        grid-template-columns: minmax(220px, 340px) minmax(0, 720px);
+        grid-template-columns: minmax(220px, 340px) minmax(0, 760px);
         gap: 42px;
-        align-items: end;
+        align-items: center;
     }
 
-    .poster-frame {
+    .portrait-frame {
         overflow: hidden;
-        border-radius: var(--radius-lg);
+        border-radius: 50%;
         box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
-        border: 1px solid rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.16);
         background: rgba(255, 255, 255, 0.08);
-        aspect-ratio: 2 / 3;
+        aspect-ratio: 1;
     }
 
-    .poster-frame img {
+    .portrait-frame img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
 
-    .movie-info {
+    .celebrity-info {
         display: flex;
         flex-direction: column;
         gap: 18px;
-        padding-bottom: 12px;
     }
 
     .eyebrow {
@@ -228,8 +247,7 @@
     }
 
     .meta-row,
-    .genre-list,
-    .actions {
+    .stats-row {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
@@ -248,61 +266,52 @@
         margin-left: 10px;
     }
 
-    .genre-list span {
-        padding: 7px 13px;
-        border-radius: var(--radius-full);
-        background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.84);
-        font-size: 0.86rem;
-        font-weight: 700;
-    }
-
-    .synopsis {
+    .bio {
         max-width: 720px;
-        color: rgba(255, 255, 255, 0.76);
+        color: rgba(255, 255, 255, 0.78);
         font-size: 1.05rem;
         line-height: 1.75;
     }
 
-    .btn-primary,
-    .btn-secondary {
-        padding: 14px 24px;
-        border-radius: var(--radius-full);
-        font-size: 0.94rem;
-        font-weight: 800;
-        transition: all var(--transition-fast);
-    }
-
-    .btn-primary {
-        background: var(--primary);
-        color: var(--white);
-        box-shadow: 0 8px 28px rgba(220, 38, 38, 0.34);
-    }
-
-    .btn-primary:hover {
-        background: var(--primary-hover);
-        transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-        color: var(--white);
+    .stat-pill {
+        min-width: 126px;
+        padding: 14px 18px;
+        border-radius: var(--radius-lg);
         background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
-    .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
+    .stat-pill strong,
+    .stat-pill span {
+        display: block;
     }
 
-    .detail-section {
-        padding: 64px 0 74px;
+    .stat-pill strong {
+        color: var(--white);
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
+    .stat-pill span {
+        margin-top: 4px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .detail-section,
+    .filmography-section {
+        padding: 64px 0 0;
+    }
+
+    .filmography-section {
+        padding-bottom: 74px;
     }
 
     .details-grid {
         display: grid;
-        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
         gap: 28px;
     }
 
@@ -310,8 +319,7 @@
         border: 1px solid rgba(139, 115, 85, 0.16);
         border-radius: var(--radius-lg);
         padding: 30px;
-        background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 248, 0.78));
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 250, 248, 0.78));
         box-shadow: 0 16px 40px rgba(42, 33, 24, 0.08);
     }
 
@@ -347,6 +355,10 @@
         line-height: 1.45;
     }
 
+    .filmography-heading {
+        margin-bottom: 26px;
+    }
+
     .info-list {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -365,10 +377,13 @@
         border: 1px solid rgba(139, 115, 85, 0.14);
     }
 
-    .primary-info {
+    .primary-info,
+    .full-info {
         grid-column: 1 / -1;
-        background:
-            linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(255, 255, 255, 0.88));
+    }
+
+    .primary-info {
+        background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(255, 255, 255, 0.88));
         border-color: rgba(220, 38, 38, 0.18);
     }
 
@@ -386,13 +401,13 @@
         line-height: 1.35;
     }
 
-    .cast-list {
+    .credits-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         gap: 12px;
     }
 
-    .cast-item {
+    .credit-item {
         display: flex;
         align-items: center;
         gap: 13px;
@@ -404,13 +419,13 @@
         transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
 
-    .cast-item:hover {
+    .credit-item:hover {
         transform: translateY(-2px);
         border-color: rgba(220, 38, 38, 0.22);
         box-shadow: 0 12px 28px rgba(42, 33, 24, 0.08);
     }
 
-    .cast-avatar {
+    .credit-icon {
         width: 46px;
         height: 46px;
         flex: 0 0 46px;
@@ -424,39 +439,53 @@
         box-shadow: 0 8px 18px rgba(220, 38, 38, 0.2);
     }
 
-    .cast-copy strong,
-    .cast-copy span {
+    .credit-copy strong,
+    .credit-copy span {
         display: block;
     }
 
-    .cast-copy strong {
+    .credit-copy strong {
         color: var(--text-primary);
         font-size: 0.98rem;
         line-height: 1.25;
     }
 
-    .cast-copy span {
+    .credit-copy span {
         margin-top: 5px;
         color: var(--text-secondary);
         font-size: 0.86rem;
         font-weight: 700;
     }
 
+    .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 24px;
+    }
+
+    .movies-grid :global(.movie-card) {
+        width: 100%;
+    }
+
     .empty-state {
+        border: 1px solid rgba(139, 115, 85, 0.16);
+        border-radius: var(--radius-lg);
+        padding: 22px;
         color: var(--text-secondary);
+        background: rgba(255, 255, 255, 0.76);
     }
 
     @media (max-width: 860px) {
-        .movie-hero {
+        .celebrity-hero {
             min-height: auto;
         }
 
-        .movie-layout,
+        .celebrity-layout,
         .details-grid {
             grid-template-columns: 1fr;
         }
 
-        .poster-frame {
+        .portrait-frame {
             max-width: 260px;
         }
 

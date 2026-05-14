@@ -17,8 +17,8 @@
 <section class="recommended-section" id="recomendadas">
     <div class="section-container">
         <SectionHeader
-            title="Recomendadas para Ti"
-            subtitle="Las peliculas mas populares de esta semana"
+            title="Películas"
+            subtitle="Las películas mas populares de esta semana"
             viewAllHref="/peliculas"
         />
 

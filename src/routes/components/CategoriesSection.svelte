@@ -24,7 +24,11 @@
                         onclick={() => activeCategory = i}
                         id="category-tab-{cat.name.toLowerCase().replace(/\s/g, '-')}"
                     >
+                        <span class="tab-dot" aria-hidden="true"></span>
                         <span class="tab-label">{cat.name}</span>
+                        {#if cat.movieCount}
+                            <span class="tab-count">{cat.movieCount}</span>
+                        {/if}
                     </button>
                 {/each}
             </div>
@@ -55,11 +59,11 @@
 
     .category-tabs {
         display: flex;
-        gap: 8px;
+        gap: 10px;
         overflow-x: auto;
-        padding-bottom: 8px;
+        padding: 2px 2px 10px;
         scrollbar-width: none;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
     }
 
     .category-tabs::-webkit-scrollbar {
@@ -69,28 +73,61 @@
     .tab-btn {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 22px;
+        gap: 7px;
+        min-height: 36px;
+        padding: 7px 13px;
         border-radius: var(--radius-full);
-        background: var(--gray-100);
+        background: rgba(255, 255, 255, 0.82);
         color: var(--text-secondary);
-        font-size: 0.9rem;
-        font-weight: 600;
+        font-size: 0.82rem;
+        font-weight: 800;
         white-space: nowrap;
         transition: all var(--transition-fast);
-        border: 2px solid transparent;
+        border: 1px solid rgba(139, 115, 85, 0.14);
+        box-shadow: 0 8px 20px rgba(42, 33, 24, 0.05);
     }
 
     .tab-btn:hover {
-        background: var(--gray-200);
+        background: var(--white);
         color: var(--text-primary);
+        border-color: rgba(220, 38, 38, 0.22);
+        transform: translateY(-1px);
     }
 
     .tab-btn.active {
+        background: linear-gradient(135deg, #7f1d1d, #b91c1c);
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.55);
+        box-shadow: 0 12px 24px rgba(127, 29, 29, 0.18);
+    }
+
+    .tab-dot {
+        width: 7px;
+        height: 7px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: rgba(153, 27, 27, 0.42);
+    }
+
+    .tab-btn.active .tab-dot {
         background: var(--white);
-        color: var(--text-primary);
-        border-color: var(--primary);
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+    }
+
+    .tab-count {
+        min-width: 22px;
+        padding: 3px 7px;
+        border-radius: var(--radius-full);
+        background: rgba(153, 27, 27, 0.08);
+        color: var(--red-700);
+        font-size: 0.72rem;
+        line-height: 1;
+        text-align: center;
+    }
+
+    .tab-btn.active .tab-count {
+        background: rgba(255, 255, 255, 0.2);
+        color: var(--white);
     }
 
     .movies-grid {
@@ -127,8 +164,14 @@
             padding: 48px 0 0;
         }
         .tab-btn {
-            padding: 8px 16px;
-            font-size: 0.82rem;
+            min-height: 34px;
+            padding: 6px 11px;
+            font-size: 0.78rem;
+        }
+
+        .tab-count {
+            min-width: 20px;
+            padding: 3px 6px;
         }
     }
 </style>

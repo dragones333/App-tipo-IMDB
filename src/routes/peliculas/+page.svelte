@@ -1,4 +1,6 @@
 <script>
+  import Nav from "$lib/components/nav.svelte";
+  import Footer from "$lib/components/Footer.svelte";
   import MovieCard from "$lib/components/MovieCard.svelte";
   import SectionHeader from "$lib/components/SectionHeader.svelte";
 
@@ -25,68 +27,116 @@
   );
 </script>
 
-<section class="catalog-page">
-  <div class="section-container">
-    <SectionHeader
-      title="Catalogo de Peliculas"
-      subtitle="Busca, filtra y descubre peliculas desde tu backend"
-    />
+<svelte:head>
+  <title>Peliculas | Dinamic Movies</title>
+  <meta name="description" content="Explora todas las peliculas registradas en Dinamic Movies." />
+</svelte:head>
 
-    <div class="catalog-toolbar">
-      <input
-        type="text"
-        placeholder="Buscar pelicula..."
-        bind:value={search}
-        class="search-input"
+<Nav />
+
+<main>
+  <section class="catalog-page">
+    <div class="section-container">
+      <a href="/" class="back-home" aria-label="Regresar al menu principal">
+        <span aria-hidden="true">←</span>
+        Menu principal
+      </a>
+
+      <SectionHeader
+        title="Catalogo de Peliculas"
+        subtitle="Busca, filtra y descubre peliculas desde tu backend"
       />
 
-      <div class="result-count">
-        {filteredMovies.length} de {movies.length} peliculas
+      <div class="catalog-toolbar">
+        <input
+          type="text"
+          placeholder="Buscar pelicula..."
+          bind:value={search}
+          class="search-input"
+        />
+
+        <div class="result-count">
+          {filteredMovies.length} de {movies.length} peliculas
+        </div>
       </div>
-    </div>
 
-    <div class="filters">
-      <button
-        class:active={!selectedCategory}
-        onclick={() => selectedCategory = ""}
-      >
-        Todas
-      </button>
-
-      {#each categories as cat}
+      <div class="filters">
         <button
-          class:active={selectedCategory === cat}
-          onclick={() => selectedCategory = cat}
+          class:active={!selectedCategory}
+          onclick={() => selectedCategory = ""}
         >
-          {cat}
+          Todas
         </button>
-      {/each}
-    </div>
 
-    <div class="filters rating-filters">
-      <button class:active={!selectedRating} onclick={() => selectedRating = ""}>Todas las calificaciones</button>
-      <button class:active={selectedRating === 7} onclick={() => selectedRating = 7}>7+</button>
-      <button class:active={selectedRating === 8} onclick={() => selectedRating = 8}>8+</button>
-      <button class:active={selectedRating === 9} onclick={() => selectedRating = 9}>9+</button>
-    </div>
-
-    {#if filteredMovies.length > 0}
-      <div class="movies-grid">
-        {#each filteredMovies as movie (movie.id)}
-          <MovieCard {movie} />
+        {#each categories as cat}
+          <button
+            class:active={selectedCategory === cat}
+            onclick={() => selectedCategory = cat}
+          >
+            {cat}
+          </button>
         {/each}
       </div>
-    {:else}
-      <div class="empty-state">
-        No hay peliculas que coincidan con los filtros.
+
+      <div class="filters rating-filters">
+        <button class:active={!selectedRating} onclick={() => selectedRating = ""}>Todas las calificaciones</button>
+        <button class:active={selectedRating === 7} onclick={() => selectedRating = 7}>7+</button>
+        <button class:active={selectedRating === 8} onclick={() => selectedRating = 8}>8+</button>
+        <button class:active={selectedRating === 9} onclick={() => selectedRating = 9}>9+</button>
       </div>
-    {/if}
-  </div>
-</section>
+
+      {#if filteredMovies.length > 0}
+        <div class="movies-grid">
+          {#each filteredMovies as movie (movie.id)}
+            <MovieCard {movie} />
+          {/each}
+        </div>
+      {:else}
+        <div class="empty-state">
+          No hay peliculas que coincidan con los filtros.
+        </div>
+      {/if}
+    </div>
+  </section>
+</main>
+
+<Footer />
 
 <style>
+  main {
+    min-height: 100vh;
+  }
+
   .catalog-page {
     padding: 118px 0 70px;
+  }
+
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid rgba(139, 115, 85, 0.14);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(42, 33, 24, 0.06);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .back-home:hover {
+    transform: translateX(-3px);
+    border-color: rgba(220, 38, 38, 0.26);
+    box-shadow: 0 14px 30px rgba(42, 33, 24, 0.1);
+  }
+
+  .back-home span {
+    font-size: 1.1rem;
+    line-height: 1;
   }
 
   .catalog-toolbar {
